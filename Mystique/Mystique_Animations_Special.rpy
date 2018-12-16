@@ -1370,7 +1370,7 @@ image Mystique_Kitty_Head:
             "True", "images/KittySprite/Kitty_Sprite_Brows_Normal.png",
             ),
         (0,0), ConditionSwitch(
-            #"K_Gag", "images/KittySprite/Kitty_Sprite_Mouth_Ballgag.png",
+            "newgirl['Mystique'].Gag", "images/KittySprite/Kitty_Sprite_Mouth_Ballgag.png",
             "newgirl['Mystique'].Mouth == 'normal' and K_Tan == 'tan3'", "images/KittySprite/Kitty_Sprite_TMouth_Normal.png",
             "newgirl['Mystique'].Mouth == 'normal'", "images/KittySprite/Kitty_Sprite_Mouth_Normal.png",
             "newgirl['Mystique'].Mouth == 'lipbite' and K_Tan == 'tan3'", "images/KittySprite/Kitty_Sprite_TMouth_Lipbite.png",

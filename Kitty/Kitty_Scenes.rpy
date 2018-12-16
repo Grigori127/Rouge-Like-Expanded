@@ -2293,7 +2293,24 @@ label Kitty_Cheated(Other = "Rogue", Resolution = 0, B = 0):  #Other is the othe
 
 # ch_r, Rogue, rogue, R_
 
-    
+label Kitty_Tied_Enter:
+            #This label is called from a Location
+            $ P_Cock = 0
+            call Shift_Focus("Kitty")
+            call KittyFaceSpecial("sexy")
+            $ K_Eyes = "closed"
+
+
+
+
+            ch_p "How you doing [K_Pet]? Looks like you're enjoying yourself there huh?"
+            call KittyFaceSpecial("sad")
+            ch_k "bla bla bla bla bla"
+
+            jump K_Tied_Cycle
+
+
+            return    
         
         
 

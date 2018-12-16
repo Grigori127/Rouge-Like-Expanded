@@ -436,6 +436,9 @@ init -1:
     default K_Vibrator = 0
     default K_Plug = 0
     default K_Plugged = 0
+    default K_Tied = 0
+    default K_TiedTimes = 0
+    default K_TiedDuration = 0
     default K_SuckB = 0
     default K_InsertP = 0
     default K_InsertA = 0
@@ -2168,6 +2171,10 @@ label KittyOutfit(K_OutfitTemp = K_Outfit, Spunk = 0, Undressed = 0, Changed = 0
             #Skips theis check if it's a sleepover
             return
 
+        if K_Tied:
+            #Skips this if she's tied up
+            return
+
         if K_Gag:
             "She removes her gag"
             $ K_Gag = 0
@@ -2583,14 +2590,20 @@ label Kitty_Schedule(Clothes = 1, Location = 1, LocTemp = K_Loc):
                         $ Options.append("custom7") if K_Custom7[0] == 2 else Options
                         $ renpy.random.shuffle(Options) 
                         $ K_OutfitDay = Options[0]
-                        $ del Options[:]  
-                $ K_Outfit = K_OutfitDay 
+                        $ del Options[:] 
+                
+                if not K_Tied:
+                
+                    $ K_Outfit = K_OutfitDay 
         #End clothing portion
         
         
         #Location portion   
         if "Kitty" in Party or K_Loc == "hold":
-                pass          
+                pass  
+
+        elif K_Tied:
+                pass        
                 
         elif Weekday == 0 or Weekday == 2:
         #MoWe   
@@ -3978,7 +3991,8 @@ label Wait (Outfit = 1, Lights = 1):
     $ K_XP = 3330 if K_XP > 3330 else K_XP
     $ E_XP = 3330 if E_XP > 3330 else E_XP
     
-        
+    if K_Tied:
+        $ K_TiedDuration += 1    
     if Time_Count < 3:  #not sleep time                                          
                 $ Time_Count += 1
                 $ R_Action += 1  
@@ -5391,11 +5405,15 @@ label Display_Kitty(Dress = 1, DLoc = K_SpriteLoc):
                 call Kitty_OutfitShame from _call_Kitty_OutfitShame
                 
             #Display Kitty
-            show Kitty_Sprite at SpriteLoc(DLoc) zorder KittyLayer:
-                    alpha 1
-                    zoom 1
-                    offset (0,0)
-                    anchor (0.5, 0.0)
+            if K_Tied:
+                hide Kitty_Sprite  
+                show Kitty_SexSprite zorder 150   
+            else:
+                show Kitty_Sprite at SpriteLoc(DLoc) zorder KittyLayer:
+                        alpha 1
+                        zoom 1
+                        offset (0,0)
+                        anchor (0.5, 0.0)
     else:
             # If Kitty isn't there, put her away
             hide Kitty_Sprite

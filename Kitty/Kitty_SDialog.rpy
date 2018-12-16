@@ -1576,6 +1576,12 @@ label Kitty_SexDialog(TempLine = 0, TempLust = 0, TempLust2 = 0):
                                 $ TempLust += 1 if K_Lust < 70 else 0
                                 
     # end R kissing                              /////////////////////////////////////////////////////////////////////////////
+    elif K_Tied:
+                    $ Line = "You continue to play with Kitty's body. "    
+                    
+                    $ TempLust += 6 if K_Lust > 50 else 3  
+                    $ K_Addict -= 2
+
     else: #no Trigger was set, somehow
         "No trigger was set, or it was '[Trigger]'. Please tell Oni what happend up to this point."
         $ Line = "Huh."
