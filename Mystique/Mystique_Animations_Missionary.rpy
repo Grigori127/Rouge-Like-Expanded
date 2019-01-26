@@ -76,21 +76,24 @@ image Mystique_Sex_Body = LiveComposite(
         #     "E_Chest == 'sports bra'", "images/MystiqueSex/Mystique_Sex_Under_SportsBra.png",
         #     "E_Chest == 'bra'", "images/MystiqueSex/Mystique_Sex_Under_Bra.png",
             "newgirl['Mystique'].Chest == 'bra'", "images/MystiqueSex/Mystique_Sex_Under_Bra.png",
-            # "E_Chest == 'black corset'", "images/MystiqueSex/Mystique_Sex_Corset_Black.png",
-            # "E_Chest == 'corset'", "images/MystiqueSex/Mystique_Sex_Corset_White.png",
+
+            "newgirl['Mystique'].Chest == 'workout top'", "images/MystiqueSex/Mystique_sex_WorkoutTopTeal.png",
+            #"newgirl['Mystique'].Chest == 'black bra'", "images/MystiqueSex/Mystique_Chest_LacedBraBlack.png",
+            "newgirl['Mystique'].Chest == 'yellow bikini'", "images/MystiqueSex/Mystique_sex_bikiniYellow.png",
+            #"newgirl['Mystique'].Chest == 'top'", "images/MystiqueSex/Mystique_Chest_TopBlack.png",
             "True", Null(),
             ), 
         (0,0), ConditionSwitch(                                                                                 #Wet look
             "newgirl['Mystique'].Water", "images/MystiqueSex/Mystique_Sex_Water_Body.png",   
             "True", Null(),              
             ), 
-        # (0,0), ConditionSwitch(                                                                                 #Overshirt
-        #     "not newgirl['Mystique'].Over", Null(),
-        #     "E_Over == 'pink top'", "images/MystiqueSex/Mystique_Sex_Over_PinkShirt.png",           
-        #     "E_Over == 'red shirt'", "images/MystiqueSex/Mystique_Sex_Over_RedShirt.png",   
-        #     "E_Over == 'towel'", "images/MystiqueSex/Mystique_Sex_Over_Towel.png",       
-        #     "True", Null(), 
-        #     ),  
+        (0,0), ConditionSwitch(                                                                                 #Overshirt
+            "not newgirl['Mystique'].Over", Null(),
+            "newgirl['Mystique'].Over == 'workout jacket'", "images/MystiqueSex/Mystique_sex_workoutJacket.png",
+            "newgirl['Mystique'].Over == 'lavender shirt'", "images/MystiqueSex/Mystique_sex_shirtLavender.png",
+            "newgirl['Mystique'].Over == 'red shirt'", "images/MystiqueSex/Mystique_sex_shirtRed.png",      
+            "True", Null(), 
+            ),  
         (0,0),ConditionSwitch(                                                                                  #Outside Spunk
             "'belly' in newgirl['Mystique'].Spunk", "images/MystiqueSex/Mystique_Sex_Spunk_Body.png",   
             "True", Null(),  
@@ -271,10 +274,20 @@ image Mystique_Sex_Legs:
 
         (0,0), ConditionSwitch(                                                                                 #Panties if up
             "newgirl['Mystique'].PantiesDown", Null(),     
+            "newgirl['Mystique'].LegsUp and newgirl['Mystique'].Panties == 'black panties'", "images/MystiqueSex/Mystique_Sex_LacePanties_legsUp.png",      
+            "newgirl['Mystique'].LegsUp and newgirl['Mystique'].Panties == 'black lingerie'", "images/MystiqueSex/Mystique_Sex_LacePanties_legsUp.png", 
+            "newgirl['Mystique'].Panties == 'black panties'", "images/MystiqueSex/Mystique_Sex_LacePanties.png",      
+            "newgirl['Mystique'].Panties == 'black lingerie'", "images/MystiqueSex/Mystique_Sex_LacePanties.png", 
+              
             # "newgirl['Mystique'].Panties == 'bikini'", "images/MystiqueSex/Mystique_Sex_Panty_BikiniBottom_White.png",          
             # "newgirl['Mystique'].Panties == 'white panties'", "images/MystiqueSex/Mystique_Sex_Panty_White.png",          
             # "newgirl['Mystique'].Panties == 'black panties'", "images/MystiqueSex/Mystique_Sex_Panty_Black.png",    
             "True", Null(),                     
+            ),  
+        (0,0), ConditionSwitch(                                                                                 #necklace
+            "newgirl['Mystique'].LegsUp", Null(),
+            "newgirl['Mystique'].Panties == 'black lingerie'", "images/MystiqueSex/Mystique_Sex_LaceBelt.png",
+            "True", Null(),
             ),  
         # (0,0), ConditionSwitch(                                                                                 #Legs Layer
         #     "E_Upskirt", Null(),                               
@@ -323,6 +336,17 @@ image Mystique_Sex_Feet = LiveComposite(
             "newgirl['Mystique'].LegsUp", "images/MystiqueSex/Mystique_Sex_Feet_LegsUp.png",
             "True", "images/MystiqueSex/Mystique_Sex_Feet.png",
             ),
+        (0,0), ConditionSwitch(                                                                                 #necklace
+            "newgirl['Mystique'].LegsUp and newgirl['Mystique'].Hose == 'stockings'", "images/MystiqueSex/Mystique_sex_lacedStockingsBlack_legsUp.png",
+            "newgirl['Mystique'].Hose == 'stockings'", "images/MystiqueSex/Mystique_sex_lacedStockingsBlack.png",
+            "True", Null(),
+            ),  
+        
+        (0,0), ConditionSwitch(                                                                                 #necklace
+            "newgirl['Mystique'].LegsUp and newgirl['Mystique'].Panties == 'black lingerie'", "images/MystiqueSex/Mystique_Sex_LaceBelt_LegsUp.png",
+            "True", Null(),
+            ),  
+
         (0,0), ConditionSwitch(                                                                                 #Wet look
             "newgirl['Mystique'].Water", "images/MystiqueSex/Mystique_Sex_Water_Feet.png",   
             "True", Null(),              
