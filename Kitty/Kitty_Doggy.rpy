@@ -800,7 +800,7 @@ label K_Gagging(Gagtype = 0):
                         $ renpy.pop_call()
                         if Situation:
                             $ renpy.pop_call()
-                        call Kitty_Doggy_Reset from _call_Kitty_Doggy_Reset_9
+                        call Kitty_Sex_Reset
                         ch_k "You shut up!"
                         ch_k "If that's how you want to treat me, we're done here!"                                                  
                         $ K_Love = Statupdate("Kitty", "Love", K_Love, 50, -10, 1)                        
@@ -955,7 +955,7 @@ label K_Gagging(Gagtype = 0):
                     $ renpy.pop_call()
                     if Situation:
                         $ renpy.pop_call()
-                    call Kitty_Doggy_Reset from _call_Kitty_Doggy_Reset_10
+                    call Kitty_Sex_Reset
                     ch_k "You shut it"
                     ch_k "If that's how you want to treat me, we're done here!"                                                  
                     $ K_Love = Statupdate("Kitty", "Love", K_Love, 50, -10, 1)                        

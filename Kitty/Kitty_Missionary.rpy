@@ -550,6 +550,30 @@ label K_Sex_Cycle: #Repeating strokes
                                     "You ask her to slow it down a bit."
                         "Slow Down. . . (locked)" if not Speed:                
                                     pass
+
+                        "Gag":
+                            if not K_Gag:
+                                #"You put a gag on Kitty"
+                            #            $ K_Gag = 2
+                            #        
+                                menu:
+                                    "How about using a ballgag?":
+                                        $ Situation = "shift"
+                                        call K_Gagging("ballgag")
+                                    "Just put the ballgag in her mouth [[without asking].":
+                                        $ Situation = "auto"
+                                        call K_Gagging("ballgag")
+                                    #"How about using a ringgag?":
+                                    #    $ Situation = "shift"
+                                    #    call K_Gagging("ringgag")
+                                    #"Just put the ringgag in her mouth [[without asking].":
+                                    #    $ Situation = "auto"
+                                    #    call K_Gagging("ringgag")
+                                    "Nevermind.":
+                                        pass
+                            else:
+                                "You remove Kitty's gag"
+                                $ K_Gag = 0
                             
                         "Slap her ass":                     
                                     call K_Slap_Ass from _call_K_Slap_Ass_8                                    
@@ -573,7 +597,7 @@ label K_Sex_Cycle: #Repeating strokes
                             "You remove the blindfold"
                             $ K_Blindfold = 0
 
-                        "Leave her tied up":
+                        "Leave her tied up" if (K_Outfit == "zipper bondage open" or K_Outfit == "zipper bondage") and K_Blindfold:
                                     jump Kitty_Tied
 
                         "Untie her" if K_Tied:
@@ -1346,6 +1370,30 @@ label K_Anal_Cycle: #Repeating strokes
                                     "You ask her to slow it down a bit."
                         "Slow Down. . . (locked)" if not Speed:                
                                     pass
+
+                        "Gag":
+                            if not K_Gag:
+                                #"You put a gag on Kitty"
+                            #            $ K_Gag = 2
+                            #        
+                                menu:
+                                    "How about using a ballgag?":
+                                        $ Situation = "shift"
+                                        call K_Gagging("ballgag")
+                                    "Just put the ballgag in her mouth [[without asking].":
+                                        $ Situation = "auto"
+                                        call K_Gagging("ballgag")
+                                    #"How about using a ringgag?":
+                                    #    $ Situation = "shift"
+                                    #    call K_Gagging("ringgag")
+                                    #"Just put the ringgag in her mouth [[without asking].":
+                                    #    $ Situation = "auto"
+                                    #    call K_Gagging("ringgag")
+                                    "Nevermind.":
+                                        pass
+                            else:
+                                "You remove Kitty's gag"
+                                $ K_Gag = 0
                             
                         "Slap her ass":                     
                                     call K_Slap_Ass from _call_K_Slap_Ass_9                                    
@@ -1369,7 +1417,7 @@ label K_Anal_Cycle: #Repeating strokes
                             "You remove the blindfold"
                             $ K_Blindfold = 0
 
-                        "Leave her tied up":
+                        "Leave her tied up" if (K_Outfit == "zipper bondage open" or K_Outfit == "zipper bondage") and K_Blindfold:
                                     jump Kitty_Tied
 
                         "Untie her" if K_Tied:
@@ -1995,6 +2043,30 @@ label K_Hotdog_Cycle: #Repeating strokes
                                     "You ask her to slow it down a bit."
                         "Slow Down. . . (locked)" if not Speed:                
                                     pass
+
+                        "Gag":
+                            if not K_Gag:
+                                #"You put a gag on Kitty"
+                            #            $ K_Gag = 2
+                            #        
+                                menu:
+                                    "How about using a ballgag?":
+                                        $ Situation = "shift"
+                                        call K_Gagging("ballgag")
+                                    "Just put the ballgag in her mouth [[without asking].":
+                                        $ Situation = "auto"
+                                        call K_Gagging("ballgag")
+                                    #"How about using a ringgag?":
+                                    #    $ Situation = "shift"
+                                    #    call K_Gagging("ringgag")
+                                    #"Just put the ringgag in her mouth [[without asking].":
+                                    #    $ Situation = "auto"
+                                    #    call K_Gagging("ringgag")
+                                    "Nevermind.":
+                                        pass
+                            else:
+                                "You remove Kitty's gag"
+                                $ K_Gag = 0
                             
                         "Slap her ass":                     
                                     call K_Slap_Ass from _call_K_Slap_Ass_10                                    
@@ -2018,7 +2090,7 @@ label K_Hotdog_Cycle: #Repeating strokes
                             "You remove the blindfold"
                             $ K_Blindfold = 0
 
-                        "Leave her tied up":
+                        "Leave her tied up" if (K_Outfit == "zipper bondage open" or K_Outfit == "zipper bondage") and K_Blindfold:
                                     jump Kitty_Tied
 
                         "Untie her" if K_Tied:
@@ -2202,7 +2274,7 @@ label Kitty_Tied:
         "You grab the mutant inhibitor collar, and put it around her neck"
         call KittyFaceSpecial("confused")
         ch_k "Hey, what are you doing??"
-        ch_p "With this collar on you won't be able to get out of these restraints"
+        ch_p "With this collar on, you won't be able to get out of these restraints"
         call KittyFaceSpecial("angry")
         ch_p "Let me just tie your legs too"
         with Shake((0, 0, 0, 0), 3.0, dist=5)
@@ -2211,12 +2283,60 @@ label Kitty_Tied:
         ch_p "I'll be back soon... or not"
         call KittyFaceSpecial("sad")
         ch_k "Don't leave me like this"
+        ch_p "Try not to make too much noise or someone else might come see what's going on"
+        if not K_Gag:
+            "Should you gag her?"
+            menu:
+                "Yes":
+                    ch_p "Here, this will make sure you don't make too much noise"
+                    $ K_Gag = "ballgag"
+                    "You put a ballgag on her mouth"
+                "No":
+                    pass
+
+        ch_p "Later"
+
         if "Kitty" not in Keys:
             $ Keys.append("Kitty")
 
         if not K_Tied:
             $ K_TiedDuration = 0
 
+        if K_TiedTimes < 5 and K_Tied:
+            $ K_TiedTimes += 1
+        $ K_Tied = 1
+        if TravelMode:
+            jump Campus_Entry
+        else:
+            call Worldmap
+        return
+
+label Kitty_Tied_Again:
+        
+        ch_p "You seem like you're enjoying yourself"
+        call KittyFaceSpecial("surprised")
+        ch_k "What do you mean??"
+        ch_p "I'm gonna leave you like this for a while longer"
+        call KittyFaceSpecial("angry")
+        ch_k "Untie me, you already had your fun"
+        with Shake((0, 0, 0, 0), 3.0, dist=5)
+        "She tries to struggle but its futile"
+        call KittyFaceSpecial("sad")
+        ch_k "Hey, this is not funny anymore"
+        ch_p "Try not to make too much noise or someone else might come see what's going on"
+        if not K_Gag:
+            "Should you gag her?"
+            menu:
+                "Yes":
+                    ch_p "Here, this will make sure you don't make too much noise"
+                    $ K_Gag = "ballgag"
+                    "You put a ballgag on her mouth"
+                "No":
+                    pass
+
+
+        ch_p "I'll be back soon... or not"
+        
         if K_TiedTimes < 5 and K_Tied:
             $ K_TiedTimes += 1
         $ K_Tied = 1
@@ -2294,7 +2414,7 @@ label K_Tied_Cycle: #Repeating strokes
                             $ K_Blindfold = 0
 
                         "Leave her tied up":
-                                    jump Kitty_Tied
+                                    jump Kitty_Tied #again
 
                         "Untie her" if K_Tied:
                                     jump Kitty_Untie
