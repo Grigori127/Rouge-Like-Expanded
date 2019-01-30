@@ -1149,7 +1149,7 @@ label EventCalls:
                     else:
                         call AskedMeet("Rogue","angry") from _call_AskedMeet    
                     
-        elif "saw with rogue" in K_Traits and "dating" in K_Traits:  
+        elif "saw with rogue" in K_Traits and "dating" in K_Traits and not K_Tied:  
                     if bg_current == "bg kitty" or bg_current == "bg player":
                         call Kitty_Cheated("Rogue") from _call_Kitty_Cheated        
                         return
@@ -1157,7 +1157,7 @@ label EventCalls:
                         call AskedMeet("Kitty","angry") from _call_AskedMeet_1  
         
         #This scene has Rogue ask Kitty if she wants to have a poly relationship with you    
-        if "ask kitty" in R_Traits:                                 
+        if "ask kitty" in R_Traits and not K_Tied:                                 
                 if K_Break[0]:
                         "Rogue sends you a text."
                         ch_r "She said to \"give it a rest?\""
@@ -1234,7 +1234,7 @@ label EventCalls:
         #end Rogue relationship stuff
                 
         #Kitty relationship stuff, not finished
-        elif "relationship" not in K_DailyActions: 
+        elif "relationship" not in K_DailyActions and not K_Tied: 
                 if "boyfriend" not in K_Petnames and K_Love >= 800: # K_Event[5]
                         if bg_current == "bg kitty" or bg_current == "bg player":
                             call Kitty_BF from _call_Kitty_BF
@@ -1467,7 +1467,7 @@ label AskedMeet(Character = "Rogue", Emotion = "bemused"): # Use AskedMeet("Rogu
                     "Rogue asks if you could meet her in your room later."
                     $ R_DailyActions.append("asked meet") 
     elif Character == "Kitty":
-            if "asked meet" not in K_DailyActions:
+            if "asked meet" not in K_DailyActions and not K_Tied:
                     call KittyFace(Emotion) from _call_KittyFace
                     "Kitty asks if you could meet her in your room later."
                     $ K_DailyActions.append("asked meet") 

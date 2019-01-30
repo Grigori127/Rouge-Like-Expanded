@@ -4286,7 +4286,7 @@ label Study_Room_Explore:
 # end Study's Room Interface //////////////////////////////////////////////////////////////////////
 
 label Kitty_Sent_Selfie(test=0):
-    if K_Loc != bg_current and K_Nudes == 1 and "Kitty" in Digits:
+    if K_Loc != bg_current and K_Nudes == 1 and "Kitty" in Digits and not K_Tied:
         if test == 0:
             $ test = renpy.random.randint(1, 3)
             #$ test = 1

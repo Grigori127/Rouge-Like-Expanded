@@ -2294,6 +2294,9 @@ label Kitty_Tied:
                 "No":
                     pass
 
+        $ Speed = 0
+        $ P_Cock = 0
+        call Put_Cock_Back
         ch_p "Later"
 
         if "Kitty" not in Keys:
@@ -2334,7 +2337,9 @@ label Kitty_Tied_Again:
                 "No":
                     pass
 
-
+        $ Speed = 0
+        $ P_Cock = 0
+        call Put_Cock_Back
         ch_p "I'll be back soon... or not"
         
         if K_TiedTimes < 5 and K_Tied:
@@ -2413,8 +2418,8 @@ label K_Tied_Cycle: #Repeating strokes
                             "You remove the blindfold"
                             $ K_Blindfold = 0
 
-                        "Leave her tied up":
-                                    jump Kitty_Tied #again
+                        "Leave her tied up again":
+                                    jump Kitty_Tied_Again
 
                         "Untie her" if K_Tied:
                                     jump Kitty_Untie
