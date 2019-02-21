@@ -3720,103 +3720,186 @@ label LikeUpdater(Primary = "Rogue", Value = 1, Noticed = 1):
 # Start Primary Sex Dialog / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /  
 label Sex_Dialog(Primary = Ch_Focus, Secondary = 0, TempFocus = 0, PrimaryLust = 0, SecondaryLust = 0, Line1 = 0, Line2 = 0, Line3 = 0, Line4 = 0, D20S = 0): #call Sex_Dialog("Rogue","Kitty") 
         # Primary is main female, secondary is supporting female, action is what they are doing.
-        $ Line = 0
-        
+                
         $ D20S = renpy.random.randint(1, 20) if not D20S else D20S #Sets random seed factor for the encounter
         # If the seed is 0-5, only offhands will play. If it's 15-20, only trigger3's will play. If it's 5-10, offhand and Secondaries will play.
         # If it's 10-15 all things will play. 
            
         # Checks for Taboo, and if it passes through, calls the first sex dialog
+        
+        $ Line = 0
         if Primary == "Rogue":
-                    if K_Loc == bg_current and not Taboo:                           #If Kitty is around and it's otherwise private
-                        call Kitty_Noticed("Rogue") from _call_Kitty_Noticed
-                        $ Secondary = "Kitty" if K_Loc == bg_current else Secondary
-#                    elif E_Loc == bg_current and not Taboo:                           #If Emma is around and it's otherwise private
-#                        call Emma_Noticed("Rogue")
-#                        $ Secondary = "Emma" if E_Loc == bg_current else Secondary
-                    elif Taboo and (D20S + (int(Taboo/10)) - Stealth) >= 10:        #If there is a Taboo level, and your modified roll is over 10
-                        call Rogue_Taboo from _call_Rogue_Taboo                    
-                    call Rogue_SexDialog from _call_Rogue_SexDialog    
+                    if Taboo:
+                        if (D20S + (int(Taboo/10)) - Stealth) >= 10:        
+                                #If there is a Taboo level, and your modified roll is over 10
+                                call Rogue_Taboo  
+                    else:
+                        #if not Taboo
+                        if K_Loc == bg_current:                           
+                            #If Kitty is around and it's otherwise private
+                            call Kitty_Noticed("Rogue")
+                            $ Secondary = "Kitty" if K_Loc == bg_current else Secondary
+                        elif E_Loc == bg_current:                           
+                            #If Emma is around and it's otherwise private
+                            call Emma_Noticed("Rogue")
+                            $ Secondary = "Emma" if E_Loc == bg_current else Secondary
+                        else:
+                            $ eachnewgirl_sd = 0
+                            while eachnewgirl_sd < len(ModdedGirls):
+                                if newgirl[ModdedGirls[eachnewgirl_sd]].Loc == bg_current:
+                                    call NewGirl_Noticed(ModdedGirls[eachnewgirl_sd], "Rogue")
+                                    $ Secondary = ModdedGirls[eachnewgirl_sd] if newgirl[ModdedGirls[eachnewgirl_sd]].Loc == bg_current else Secondary
+                                    $ eachnewgirl_sd += 100
+                                else:
+                                    $ eachnewgirl_sd += 1
+                    
+                    call Rogue_SexDialog  
                                     
         elif Primary == "Kitty":
-                    if R_Loc == bg_current and not Taboo:                           #If Rogue is around and it's otherwise private
-                        call Rogue_Noticed("Kitty") from _call_Rogue_Noticed
-                        $ Secondary = "Rogue" if R_Loc == bg_current else Secondary
-#                    elif E_Loc == bg_current and not Taboo:                           #If Emma is around and it's otherwise private
-#                        call Emma_Noticed("Kitty")
-#                        $ Secondary = "Emma" if E_Loc == bg_current else Secondary
-                    elif Taboo and (D20S + (int(Taboo/10)) - Stealth) >= 10:        #If there is a Taboo level, and your modified roll is over 10
-                        call Kitty_Taboo from _call_Kitty_Taboo                    
-                    call Kitty_SexDialog from _call_Kitty_SexDialog
+                    if Taboo:
+                        if (D20S + (int(Taboo/10)) - Stealth) >= 10:        
+                                #If there is a Taboo level, and your modified roll is over 10
+                                call Kitty_Taboo  
+                    else:
+                        #if not Taboo
+                        if R_Loc == bg_current:                           
+                            #If Rogue is around and it's otherwise private
+                            call Rogue_Noticed("Kitty")
+                            $ Secondary = "Rogue" if R_Loc == bg_current else Secondary
+                        elif E_Loc == bg_current:                           
+                            #If Emma is around and it's otherwise private
+                            call Emma_Noticed("Kitty")
+                            $ Secondary = "Emma" if E_Loc == bg_current else Secondary
+                        else:
+                            $ eachnewgirl_sd = 0
+                            while eachnewgirl_sd < len(ModdedGirls):
+                                if newgirl[ModdedGirls[eachnewgirl_sd]].Loc == bg_current:
+                                    call NewGirl_Noticed(ModdedGirls[eachnewgirl_sd], "Kitty")
+                                    $ Secondary = ModdedGirls[eachnewgirl_sd] if newgirl[ModdedGirls[eachnewgirl_sd]].Loc == bg_current else Secondary
+                                    $ eachnewgirl_sd += 100
+                                else:
+                                    $ eachnewgirl_sd += 1
+                                                    
+                    call Kitty_SexDialog
                     
         elif Primary == "Emma":
-                    if R_Loc == bg_current and not Taboo:                           #If Rogue is around and it's otherwise private
-                        call Rogue_Noticed("Emma") from _call_Rogue_Noticed_1
-                        $ Secondary = "Rogue" if R_Loc == bg_current else Secondary
-                    elif K_Loc == bg_current and not Taboo:                           #If Kitty is around and it's otherwise private
-                        call Kitty_Noticed("Emma") from _call_Kitty_Noticed_1
-                        $ Secondary = "Kitty" if K_Loc == bg_current else Secondary
-                    elif Taboo and (D20S + (int(Taboo/10)) - Stealth) >= 10:        #If there is a Taboo level, and your modified roll is over 10
-                        call Emma_Taboo from _call_Emma_Taboo                    
-                    call Emma_SexDialog from _call_Emma_SexDialog
-
-        elif Primary == "Mystique":
-                    if R_Loc == bg_current and not Taboo:                           #If Rogue is around and it's otherwise private
-                        call Rogue_Noticed("Mystique") from _call_Rogue_Noticed_2
-                        $ Secondary = "Rogue" if R_Loc == bg_current else Secondary
-                    elif K_Loc == bg_current and not Taboo:                           #If Kitty is around and it's otherwise private
-                        call Kitty_Noticed("Mystique") from _call_Kitty_Noticed_2
-                        $ Secondary = "Kitty" if K_Loc == bg_current else Secondary
-                    elif Taboo and (D20S + (int(Taboo/10)) - Stealth) >= 10:        #If there is a Taboo level, and your modified roll is over 10
-                        call Mystique_Taboo from _call_Mystique_Taboo_1                    
-                    call Mystique_SexDialog from _call_Mystique_SexDialog
-        
-        
+            
+                    if Taboo:
+                        if (D20S + (int(Taboo/10)) - Stealth) >= 10:        
+                                #If there is a Taboo level, and your modified roll is over 10
+                                call Emma_Taboo  
+                    else:
+                        #if not Taboo
+                        if R_Loc == bg_current:                           
+                            #If Rogue is around and it's otherwise private
+                            call Rogue_Noticed("Emma")
+                            $ Secondary = "Rogue" if R_Loc == bg_current else Secondary 
+                        elif K_Loc == bg_current:                          
+                            #If Kitty is around and it's otherwise private
+                            call Kitty_Noticed("Emma")
+                            $ Secondary = "Kitty" if K_Loc == bg_current else Secondary
+                        else:
+                            $ eachnewgirl_sd = 0
+                            while eachnewgirl_sd < len(ModdedGirls):
+                                if newgirl[ModdedGirls[eachnewgirl_sd]].Loc == bg_current:
+                                    call NewGirl_Noticed(ModdedGirls[eachnewgirl_sd], "Emma")
+                                    $ Secondary = ModdedGirls[eachnewgirl_sd] if newgirl[ModdedGirls[eachnewgirl_sd]].Loc == bg_current else Secondary
+                                    $ eachnewgirl_sd += 100
+                                else:
+                                    $ eachnewgirl_sd += 1
+                           
+                    call Emma_SexDialog
+                    
+        elif Primary in ModdedGirls:
+            
+                    if Taboo:
+                        if (D20S + (int(Taboo/10)) - Stealth) >= 10:        
+                                #If there is a Taboo level, and your modified roll is over 10
+                                call Laura_Taboo  
+                    else:
+                        #if not Taboo
+                        if R_Loc == bg_current:                           
+                            #If Rogue is around and it's otherwise private
+                            call Rogue_Noticed(Primary)
+                            $ Secondary = "Rogue" if R_Loc == bg_current else Secondary 
+                        elif K_Loc == bg_current:                          
+                            #If Kitty is around and it's otherwise private
+                            call Kitty_Noticed(Primary)
+                            $ Secondary = "Kitty" if K_Loc == bg_current else Secondary
+                        elif E_Loc == bg_current:                           
+                            #If Emma is around and it's otherwise private
+                            call Emma_Noticed(Primary)
+                            $ Secondary = "Emma" if E_Loc == bg_current else Secondary
+                        else:
+                            $ eachnewgirl_sd = 0
+                            while eachnewgirl_sd < len(ModdedGirls):
+                                if newgirl[ModdedGirls[eachnewgirl_sd]].Loc == bg_current and Primary != ModdedGirls[eachnewgirl_sd]:
+                                    call NewGirl_Noticed(ModdedGirls[eachnewgirl_sd], Primary)
+                                    $ Secondary = ModdedGirls[eachnewgirl_sd] if newgirl[ModdedGirls[eachnewgirl_sd]].Loc == bg_current else Secondary
+                                    $ eachnewgirl_sd += 100
+                                else:
+                                    $ eachnewgirl_sd += 1
+                           
+                    call Mystique_SexDialog #NewGirl_Sex_Dialog
+                    
         $ Line1 = Line #Set Line1 to the current state of the Line variable
-                
-        # If there is a player offhand Trigger set and the random value is 1-15, add an Offhand dialog
+        #End Primary Dialog
+        
+        #Trigger 2
         if Trigger2 and D20S <= 15:
+                    # If there is a player offhand Trigger set and the random value is 1-15, add an Offhand dialog
                     $ Line = ""
                     if Primary == "Rogue":                        
-                        call Rogue_Offhand from _call_Rogue_Offhand
+                            call Rogue_Offhand
                     elif Primary == "Kitty":
-                        call Kitty_Offhand from _call_Kitty_Offhand
+                            call Kitty_Offhand
                     elif Primary == "Emma":
-                        call Emma_Offhand from _call_Emma_Offhand_1
+                            call Emma_Offhand
                     elif Primary == "Mystique":
-                        call Mystique_Offhand from _call_Mystique_Offhand
+                            call Mystique_Offhand
+                    # elif Primary == "Laura":
+                    #         call Laura_Offhand
                     
                     $ Line1 = Line1 + Line
-        else:                
-                    $ Line1 = Line1 +"."
+#        else:               
+#                    $ Line1 = Line1 + "."
+        #End Offhand
         
-        # If there is a Primary offhand Trigger set and the random value is 1-10, add a self-directed dialog
+        #Trigger 3
         if D20S >= 7 and Trigger not in ("masturbation", "lesbian"):
+                    # If there is a Primary offhand Trigger set and the random value is 1-10, add a self-directed dialog
                     $ Line = 0
                     if Primary == "Rogue":
-                        call Rogue_Self_Lines("T3",Trigger3) from _call_Rogue_Self_Lines      
+                            call Rogue_Self_Lines("T3",Trigger3)      
                     elif Primary == "Kitty":
-                        call Kitty_Self_Lines("T3",Trigger3) from _call_Kitty_Self_Lines_3      
+                            call Kitty_Self_Lines("T3",Trigger3)      
                     elif Primary == "Emma":
-                        call Emma_Self_Lines("T3",Trigger3) from _call_Emma_Self_Lines 
+                            call Emma_Self_Lines("T3",Trigger3)   
                     elif Primary == "Mystique":
-                        call NewGirl_Self_Lines("Mystique","T3",Trigger3) from _call_NewGirl_Self_Lines 
+                            call Mystique_Self_Lines("T3",Trigger3)   
+                    # elif Primary == "Laura":
+                    #         call Laura_Self_Lines("T3",Trigger3) 
                     if Line:
-                        $ Line3 = Line + "."
-           
-        # If there is a Secondary character and the random value is 5-15, add a threeway dialog
-        if Secondary and (7 <= D20S <= 17 or Trigger4 == "watch"):
+                            $ Line3 = Line + "."
+        #End Primary girl offhand
+        
+        #Trigger 4
+        if Secondary and (not Trigger4 or 7 <= D20S <= 17 or Trigger4 == "watch"):
+                    # If there is a Secondary character and the random value is 5-15, add a threeway dialog
                     $ Line = 0
                     if Secondary == "Rogue":
-                        call Rogue_SexDialog_Threeway from _call_Rogue_SexDialog_Threeway
+                            call Rogue_SexDialog_Threeway
                     elif Secondary == "Kitty":
-                        call Kitty_SexDialog_Threeway from _call_Kitty_SexDialog_Threeway_1
+                            call Kitty_SexDialog_Threeway
                     elif Secondary == "Emma":
-                        call Emma_SexDialog_Threeway from _call_Emma_SexDialog_Threeway
+                            call Emma_SexDialog_Threeway
                     elif Secondary == "Mystique":
-                        call Mystique_SexDialog_Threeway from _call_Mystique_SexDialog_Threeway
+                            call Mystique_SexDialog_Threeway
+                    # elif Secondary == "Laura":
+                    #         call Laura_SexDialog_Threeway
                     if Line:
-                        $ Line4 = Line + "."
+                            $ Line4 = Line + "."
+        #End Secondary Dialog
         
         #Applying player's satisfaction
         $ P_Focus = Statupdate("Player", "Focus", P_Focus, 200, TempFocus) 
@@ -3824,55 +3907,81 @@ label Sex_Dialog(Primary = Ch_Focus, Secondary = 0, TempFocus = 0, PrimaryLust =
         #Applying primary girl's satisfaction
         if Primary == "Rogue":
                 $ R_Lust = Statupdate("Rogue", "Lust", R_Lust, 200, PrimaryLust) 
-                call RogueLust from _call_RogueLust_1                         
+                call RogueLust                         
         elif Primary == "Kitty":
                 $ K_Lust = Statupdate("Kitty", "Lust", K_Lust, 200, PrimaryLust)
-                call KittyLust from _call_KittyLust_9                          
+                call KittyLust                          
         elif Primary == "Emma":
                 $ E_Lust = Statupdate("Emma", "Lust", E_Lust, 200, PrimaryLust)
-                call EmmaLust from _call_EmmaLust_10 
+                call EmmaLust     
         elif Primary == "Mystique":
                 $ newgirl["Mystique"].Lust = Statupdate("Mystique", "Lust", newgirl["Mystique"].Lust, 200, PrimaryLust)
-                call MystiqueLust from _call_MystiqueLust_11            
+                call MystiqueLust     
+        # elif Primary == "Laura":
+        #         $ L_Lust = Statupdate("Laura", "Lust", L_Lust, 200, PrimaryLust)
+        #         call LauraLust     #fix, good place for Stat-up?        
         
         #Applying secondary girl's satisfaction
         if Secondary == "Rogue":
                 $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Kitty" and R_LikeKitty >= 70 else 0  
-                $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Emma" and E_LikeKitty >= 70 else 0 
+                $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Emma" and R_LikeEmma >= 70 else 0 
+                $ eachnewgirl_sd = 0
+                while eachnewgirl_sd < len(ModdedGirls):
+                    $ SecondaryLust += (int(PrimaryLust/10)) if Primary in ModdedGirls and R_LikeNewGirl[Primary] >= 70 else 0 
+                    $ eachnewgirl_sd += 1
                 $ R_Lust = Statupdate("Rogue", "Lust", R_Lust, 200, SecondaryLust) 
-                call RogueLust from _call_RogueLust_2
+                call RogueLust
         elif Secondary == "Kitty":
                 $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Rogue" and K_LikeRogue >= 70 else 0  
-                $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Emma" and K_LikeEmma >= 70 else 0        
+                $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Emma" and K_LikeEmma >= 70 else 0    
+                while eachnewgirl_sd < len(ModdedGirls):
+                    $ SecondaryLust += (int(PrimaryLust/10)) if Primary in ModdedGirls and K_LikeNewGirl[Primary] >= 70 else 0     
+                    $ eachnewgirl_sd += 1
                 $ K_Lust = Statupdate("Kitty", "Lust", K_Lust, 200, SecondaryLust)
-                call KittyLust from _call_KittyLust_10 
+                call KittyLust 
         elif Secondary == "Emma":
                 $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Rogue" and E_LikeRogue >= 50 else 0   
-                $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Kitty" and E_LikeKitty >= 50 else 0     
+                $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Kitty" and E_LikeKitty >= 50 else 0
+                while eachnewgirl_sd < len(ModdedGirls):
+                    $ SecondaryLust += (int(PrimaryLust/10)) if Primary in ModdedGirls and E_LikeNewGirl[Primary] >= 70 else 0 
+                    $ eachnewgirl_sd += 1
                 $ E_Lust = Statupdate("Emma", "Lust", E_Lust, 200, SecondaryLust)
-                call EmmaLust from _call_EmmaLust_11
+                call EmmaLust 
         elif Secondary == "Mystique":
                 $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Rogue" and newgirl["Mystique"].LikeRogue >= 50 else 0   
-                $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Kitty" and newgirl["Mystique"].LikeKitty >= 50 else 0     
-                $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Emma" and newgirl["Mystique"].LikeEmma >= 50 else 0     
+                $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Kitty" and newgirl["Mystique"].LikeKitty >= 50 else 0  
+                $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Emma" and newgirl["Mystique"].LikeEmma >= 70 else 0      
+                while eachnewgirl_sd < len(ModdedGirls):
+                    $ SecondaryLust += (int(PrimaryLust/10)) if Primary == ModdedGirls[eachnewgirl_sd] and Primary != "Mystique" and newgirl["Mystique"].LikeNewGirl[Primary] >= 70 else 0 
+                    $ eachnewgirl_sd += 1
+
                 $ newgirl["Mystique"].Lust = Statupdate("Mystique", "Lust", newgirl["Mystique"].Lust, 200, SecondaryLust)
-                call MystiqueLust from _call_MystiqueLust_12 
+                call MystiqueLust 
+        # elif Secondary == "Laura":
+        #         $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Rogue" and newgirl["Laura"].LikeRogue >= 50 else 0   
+        #         $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Kitty" and newgirl["Laura"].LikeKitty >= 50 else 0  
+        #         $ SecondaryLust += (int(PrimaryLust/10)) if Primary == "Emma" and newgirl["Laura"].LikeEmma >= 70 else 0      
+        #         while eachnewgirl_sd < len(ModdedGirls):
+        #             $ SecondaryLust += (int(PrimaryLust/10)) if Primary in ModdedGirls and Primary != "Laura" and newgirl["Laura"].LikeNewGirl[Primary] >= 70 else 0 
+        #             $ eachnewgirl_sd += 1
+        #         $ newgirl["Laura"].Lust = Statupdate("Laura", "Lust", newgirl["Laura"].Lust, 200, SecondaryLust)
+        #         call LauraLust 
         
         
-        # Dialog begins to play out. . .  
-        
+        # Dialog begins to play out. . . 
+#        "Middialog=[Line]"
         "[Line1]"
-        $ Line = Line1
         if Line3:
                 #If there's a secondary line, play it
+                call Seen_First_Peen(Primary,Secondary,Passive=3)
                 "[Line3]"
-                $ Line = Line3
         if Line4:   
                 #add call to First Les here."
                 #If there's a third person line, play it
-                "[Line4]"
-                $ Line = Line4
-        call NewGirl_Dirty_Talk from _call_NewGirl_Dirty_Talk
+                call Seen_First_Peen(Primary,Secondary,Passive=4)
+                "[Line4]"                
+        call Dirty_Talk 
+#        "prereturn=[Line]"
                         
         return
         
