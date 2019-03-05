@@ -2202,7 +2202,8 @@ label Shower_Room_Entry:
     if "showered" not in R_DailyActions and (R_Loc == "bg rogue" or R_Loc == "bg dangerroom"):  #Checks if Rogue is in the shower
             $ Options.append("Rogue")   
     if "showered" not in K_DailyActions and (K_Loc == "bg kitty" or K_Loc == "bg dangerroom") and "met" in K_History:  #Checks if Kitty is in the shower
-            $ Options.append("Kitty")     
+            if not K_Tied:
+                $ Options.append("Kitty")     
     if "showered" not in E_DailyActions and (E_Loc == "bg emma" or E_Loc == "bg dangerroom") and "met" in E_History:  #Checks if Emma is in the shower
             $ Options.append("Emma")
     
@@ -3194,8 +3195,15 @@ label Kitty_Room_Entry:
                     jump Kitty_Room   
     #End if Kitty in Party
     
+
+    if K_Tied: #Kitty is tied     
+                "As you approach her room, you hear soft moaning from inside."
+                call Set_The_Scene
+                #"You see Kitty, eyes closed and stroking herself vigorously."
                     
-    if Round >= 10 and K_Loc == "bg kitty" and (D20 >=15 and K_Lust >= 70): #Kitty caught fapping      
+    # End Kitty caught Fapping
+                    
+    elif Round >= 10 and K_Loc == "bg kitty" and (D20 >=15 and K_Lust >= 70): #Kitty caught fapping      
                 "As you approach her room, you hear soft moaning from inside, and notice that the door is slightly ajar."
                 menu:
                     extend ""
@@ -3385,6 +3393,8 @@ label Kitty_Room:
     call GirlsAngry from _call_GirlsAngry_8            
     call Set_The_Scene from _call_Set_The_Scene_70  
     
+    if K_Tied:
+        jump Kitty_Tied_Enter
 # Kitty's Room Menu Start <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     call Rogue_Sent_Selfie from _call_Rogue_Sent_Selfie_6
     if K_Loc == bg_current:
@@ -4277,7 +4287,7 @@ label Study_Room_Explore:
 # end Study's Room Interface //////////////////////////////////////////////////////////////////////
 
 label Kitty_Sent_Selfie(test=0):
-    if K_Loc != bg_current and K_Nudes == 1 and "Kitty" in Digits:
+    if K_Loc != bg_current and K_Nudes == 1 and "Kitty" in Digits and not K_Tied:
         if test == 0:
             $ test = renpy.random.randint(1, 3)
             #$ test = 1

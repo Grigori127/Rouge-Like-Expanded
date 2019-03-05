@@ -575,7 +575,7 @@ label Kitty_Top_Off(Intro = 1, Line = 0, Cnt = 0):                              
         while (K_Chest or K_Over) and Cnt:
             menu:                                                                                 #Menu All off?
                 ch_k "So[K_like]how much did you want me to take off?"  
-                "Lose the [K_Over]." if K_Over:                 
+                "Lose the [K_Over]." if K_Over and not K_Tied:                 
                     call KittyFace("bemused", 1) from _call_KittyFace_652                    
                     $ Line = K_Over
                     $ K_Over = 0

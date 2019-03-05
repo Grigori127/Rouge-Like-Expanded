@@ -546,7 +546,7 @@ image Kitty_Head:
             "True", "images/KittySprite/Kitty_Sprite_Brows_Normal.png",
             ),
         (0,0), ConditionSwitch(
-            #"K_Gag", "images/KittySprite/Kitty_Sprite_Mouth_Ballgag.png",
+            "K_Gag", "images/KittySprite/Kitty_Sprite_Mouth_Ballgag.png",
             "K_Mouth == 'normal' and K_Tan == 'tan3'", "images/KittySprite/Kitty_Sprite_TMouth_Normal.png",
             "K_Mouth == 'normal'", "images/KittySprite/Kitty_Sprite_Mouth_Normal.png",
             "K_Mouth == 'lipbite' and K_Tan == 'tan3'", "images/KittySprite/Kitty_Sprite_TMouth_Lipbite.png",
